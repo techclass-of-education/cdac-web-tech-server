@@ -1,9 +1,10 @@
 const express=require("express")
 const router=express.Router()
 const incidentModel=require("../models/incidentModel.js")
+const {authVerifyMiddleware}= require("../config/jwtVerify.js")
 const { default: mongoose } = require("mongoose")
 
-router.get("/",async (req,res)=>
+router.get("/",authVerifyMiddleware,async (req,res)=>
 {
     const incidents=await incidentModel.find()
     if(incidents.length==0)

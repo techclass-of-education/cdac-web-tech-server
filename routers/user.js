@@ -3,22 +3,8 @@ const router=express.Router()
 const userModel=require("../models/userModel.js")
 const { default: mongoose } = require("mongoose")
 const jwt=require("jsonwebtoken")
-
+const {authVerifyMiddleware}= require("../config/jwtVerify.js")
 const JWTSecretKey="this-is-a-secret-jwtkey-for-tokens"
-
-const authVerifyMiddleware=(req,res,next)=>
-{
-        const token=req.cookies.token
-        if(!token)
-        {
-            return res.json({msg:"token not found"})
-        }
-        const decoded=jwt.verify(token,JWTSecretKey)
-        const user=decoded
-        req.user=user
-        next()
-
-}
 
 
 
